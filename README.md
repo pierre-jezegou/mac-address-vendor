@@ -1,7 +1,8 @@
 # Mac Address $\to$ Vendor
-The aim of this app is to get the macnufacturer of a given mac address.
-This can be usefull to identify unexpected machine connected to a network for instance
+The aim of this app is to get the manufacturer of a given mac address.
+This can be usefull to identify unexpected machine connected to a network for instance.
 
+This project is based on a existing [API](https://rapidapi.com/softrix-technologies-dnschecker/api/mac-address-lookup1/).
 ## Usage
 1. Create an account on https://rapidapi.com/collection/cool-apis and subscribe to this API https://rapidapi.com/softrix-technologies-dnschecker/api/mac-address-lookup1/ (0$)
 2. Copy the credentials (`X-RapidAPI-Key`)  and paste it in `.env` file
