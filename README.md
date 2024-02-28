@@ -11,6 +11,8 @@ This project is based on a existing [API](https://rapidapi.com/softrix-technolog
     python3 -m venv .venv && source .venv/bin/activate
     ```
 
+> [!NOTE]
+> The API doesn't seem to require any particular format of MAC address. The `format_mac_address` function is an excuse to use regex and string formating.
 
 ## Tests
 To run the tests, run :
