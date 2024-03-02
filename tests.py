@@ -1,16 +1,17 @@
 import time
 from prettytable import PrettyTable
-from mac_address_api import *
+from mac_address_api import get_manufacturer
 
 
 def print_status_emoji(status: bool)->str:
+    """Print emoji corresponding to boolean"""
     if status:
         return "✅"
-    else:
-        return "❌"
-    
-    
+    return "❌"
+
+
 def test(mac_addresses: list) -> str:
+    """Test get_manufacturer function on some given examples"""
     table = PrettyTable(["MAC Address", "Company to guess", "Company given by API", "Check passed"])
     for mac_address in mac_addresses:
         try:
@@ -22,7 +23,7 @@ def test(mac_addresses: list) -> str:
         time.sleep(1) # To respect limitations of the API (max one request per second)
     return table
 
-mac_addresses = [
+mac_addresses_list = [
     {
         "manufacturer": "huawei technologies co.,ltd",
         "mac_address": "00:18:82:a3:2a:09"
@@ -53,4 +54,4 @@ mac_addresses = [
     }
 ]
 
-print(test(mac_addresses))
+print(test(mac_addresses_list))
