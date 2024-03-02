@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 import re
 
+# Load environment variables file
 load_dotenv()
 
 URL = "https://mac-address-lookup1.p.rapidapi.com/static_rapid/mac_lookup/"
@@ -13,27 +14,35 @@ def get_manufacturer(mac_address: str) -> str:
 
     querystring = {"query":mac_address}
 
+    # Get the api key from environment variables
     try:
         api_key = os.environ['X-RAPIDAPI-KEY']
     except KeyError:
         raise KeyError("Environment variable missing")
     
+    # Set headers required by the API (documented by the API provider)
     headers = {
         "X-RapidAPI-Key": api_key,
         "X-RapidAPI-Host": "mac-address-lookup1.p.rapidapi.com"
     }
 
+    # Make the request
     try:
         response = requests.get(URL, headers=headers, params=querystring)
-    except requests.exceptions.RequestException as e:  # This is the correct syntax
-        raise SystemExit(e)
-    
+        response.raise_for_status() # throw an exception if status code is 4xx or 5xx
+    except requests.HTTPError as e:
+        raise requests.HTTPError('Error', e)
+
+    # Parse the response
+    # It could be interesting to deal with other exceptions (more than 1 vendor returned by the API...)
     try:
         return response.json()['result'][0]['name']
-    except (RuntimeError, TypeError, KeyError) as e:
+    except (TypeError, KeyError) as e:
         raise SystemExit(e)
     except IndexError:
         raise IndexError("No company corresponding to this MAC Address")
+
+
 
 def format_mac_address(mac_address: str) -> str:
     ''' Convert any mac_address to the following format "aa:bb:cc:dd:ee:ff"'''
