@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import requests
 
 # Load environment variables file
-load_dotenv("private.env")
+load_dotenv()
 
 URL = "https://mac-address-lookup1.p.rapidapi.com/static_rapid/mac_lookup/"
 
