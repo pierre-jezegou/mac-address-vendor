@@ -40,6 +40,10 @@ mac_addresses = [
         "mac_address": "0C-41-3E-b6-4e-76"
     },
     {
+        "manufacturer": "realtek semiconductor corp.",
+        "mac_address": "00:E0-4c:35:2f:10"
+    },
+    {
         "manufacturer": "Bad format",
         "mac_address": "0?:00:00:00:00:00"
     },
