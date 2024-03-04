@@ -1,3 +1,5 @@
+"""Test mac_address_api module"""
+
 import time
 from prettytable import PrettyTable
 from mac_address_api import get_manufacturer
@@ -19,7 +21,9 @@ def test(mac_addresses: list) -> str:
         except (AssertionError, TypeError, KeyError, IndexError) as e:
             result = str(e)
 
-        table.add_row([mac_address["mac_address"], mac_address['manufacturer'], result, print_status_emoji(mac_address['manufacturer']==result)])
+        table.add_row([mac_address["mac_address"],
+                       mac_address['manufacturer'],
+                       result, print_status_emoji(mac_address['manufacturer']==result)])
         time.sleep(1) # To respect limitations of the API (max one request per second)
     return table
 

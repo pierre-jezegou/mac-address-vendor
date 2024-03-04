@@ -1,3 +1,5 @@
+""" CCBDA Project - Build a simple app to use an API """
+
 import os
 import re
 from dotenv import load_dotenv
@@ -17,8 +19,8 @@ def get_manufacturer(mac_address: str) -> str:
     # Get the api key from environment variables
     try:
         api_key = os.environ['X-RAPIDAPI-KEY']
-    except KeyError:
-        raise KeyError("Environment variable missing")
+    except KeyError as e:
+        raise KeyError("Environment variable missing") from e
 
     # Set headers required by the API (documented by the API provider)
     headers = {
@@ -31,7 +33,7 @@ def get_manufacturer(mac_address: str) -> str:
         response = requests.get(URL, headers=headers, params=querystring, timeout=10)
         response.raise_for_status() # throw an exception if status code is 4xx or 5xx
     except requests.HTTPError as e:
-        raise requests.HTTPError('Error', e)
+        raise requests.HTTPError('Error', e) from e
 
     # Parse the response
     # It could be interesting to deal with other exceptions
@@ -40,20 +42,22 @@ def get_manufacturer(mac_address: str) -> str:
     try:
         return response.json()['result'][0]['name']
     except (TypeError, KeyError) as e:
-        raise SystemExit(e)
-    except IndexError:
-        raise IndexError("No company corresponding to this MAC Address")
+        raise SystemExit(e) from e
+    except IndexError as e:
+        raise IndexError("No company corresponding to this MAC Address") from e
 
 
 
 def format_mac_address(mac_address: str) -> str:
     ''' Convert any mac_address to the following format "aa:bb:cc:dd:ee:ff"'''
     # Verify by a RegEx that the mac_address given in argument is really one
-    regex = r"^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$"
+    regex = r"""
+        ^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})|
+        ([0-9a-fA-F]{4}\\.[0-9a-fA-F]{4}\\.[0-9a-fA-F]{4})$"""
     try:
         assert re.match(regex, mac_address)
-    except AssertionError:
-        raise AssertionError("Bad format")
+    except AssertionError as e:
+        raise AssertionError("Bad format") from e
 
     # Convert mac-address to the required type
     mac_address = ''.join(filter(lambda x: x.isalnum(), mac_address))
