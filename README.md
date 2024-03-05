@@ -15,10 +15,19 @@ This project is based on a existing [API](https://rapidapi.com/softrix-technolog
 > The API doesn't seem to require any particular format of MAC address. The `format_mac_address` function is an excuse to use regex and string formating.
 
 ## Why? Purpose
-MAC address vendor identification offers significant benefits in network management and security. By discerning the vendor from a MAC address, network administrators can swiftly troubleshoot connectivity issues, as different vendors have distinct MAC address prefixes. This knowledge streamlines network inventory management, facilitating the tracking of devices on the network. Additionally, it aids in security monitoring by detecting unauthorized devices, with unfamiliar or rogue MAC addresses standing out amidst known vendor patterns. This proactive approach enhances network security by swiftly identifying potential threats.
+MAC address vendor identification offers significant benefits in network management and security. By discerning the vendor from a MAC address, network administrators can swiftly **troubleshoot connectivity issues**, as different vendors have distinct MAC address prefixes. This knowledge streamlines network inventory management, facilitating the tracking of devices on the network. Additionally, it aids in **security monitoring** by detecting unauthorized devices, with unfamiliar or rogue MAC addresses standing out amidst known vendor patterns. This proactive approach enhances network security by swiftly identifying potential threats.
 
-Furthermore, the ability to identify devices by vendor assists in implementing quality of service (QoS) measures, prioritizing traffic based on device types. Automation tools leverage this information to configure devices, assign VLANs, and apply specific network rules. In forensic analysis, knowing the vendor of devices involved in security incidents enables efficient tracing of attack sources. Overall, MAC address vendor identification is a pivotal aspect of network administration, providing insights into device types, aiding in compliance with regulations, and empowering administrators to maintain efficient, secure, and well-managed networks.
+Furthermore, the ability to identify devices by vendor assists in implementing **quality of service** (QoS) measures, prioritizing traffic based on device types. Automation tools leverage this information to configure devices, assign VLANs, and apply specific network rules. In **forensic analysis**, knowing the vendor of devices involved in security incidents enables efficient tracing of attack sources. Overall, MAC address vendor identification is a pivotal aspect of network administration, providing insights into **device types**, aiding in compliance with regulations, and empowering administrators to maintain efficient, secure, and well-managed networks.
 
+
+## Technical choices
+- The code utilizes the `requests` library for making HTTP requests to interact with the API, a common choice for its robustness and ease of use in Python.
+  
+- Sensible handling of the API key is implemented by storing it in an environment variable (`X-RAPIDAPI-KEY`) accessed using `os.environ`, enhancing security and ease of configuration for different environments.
+
+- The `format_mac_address` function validates the input MAC address using regular expressions (RegEx), ensuring it matches the expected format before making the API call, thus improving the application's reliability.
+
+- Exception handling, like using `try-except` blocks around the API requests, allows for graceful handling of potential errors such as HTTP errors or missing data in the API response, enhancing the code's robustness and maintainability.
 
 ## Tests
 To run the tests, run :
